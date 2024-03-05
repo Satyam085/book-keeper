@@ -64,137 +64,142 @@ export default function EntryForm() {
         ref={formRef}
         action={formAction}
         onSubmit={form.handleSubmit(() => formRef.current?.submit())}
-        className="grid-col-1 lg:grid-col-2 grid w-[60%] gap-4 lg:grid-flow-col lg:grid-rows-4"
+        className=""
       >
-        <FormField
-          control={form.control}
-          name="ISBN"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="font-semibold">ISBN</FormLabel>
-              <FormControl>
-                <Input
-                  className="h-12"
-                  placeholder="Enter the book's ISBN"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="title"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="font-semibold">Title</FormLabel>
-              <FormControl>
-                <Input
-                  className="h-12"
-                  placeholder="Enter the book's title"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="subtitle"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="font-semibold">Subtitle</FormLabel>
-              <FormControl>
-                <Input
-                  className="h-12"
-                  placeholder="Enter the book's subtitle"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="authors"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="font-semibold">Authors</FormLabel>
-              <FormControl>
-                <Input
-                  className="h-12"
-                  placeholder="Enter the book's authors"
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription>
-                Enter multiple author with seperation of commas
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="category"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="font-semibold">Category</FormLabel>
-              <FormControl>
-                <Input
-                  className="h-12"
-                  placeholder="Enter the book's category"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="publishedDate"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="font-semibold">Published Date</FormLabel>
-              <FormControl>
-                <Input
-                  className="h-12"
-                  type="date"
-                  max={new Date().toISOString().split("T")[0]}
-                  placeholder="Enter the book's published date"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="publisher"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="font-semibold">Publisher</FormLabel>
-              <FormControl>
-                <Input
-                  className="h-12"
-                  placeholder="Enter the book's publisher"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button
-          className="mt-5 w-[50%] p-5 text-xl lg:mt-10 lg:w-[70%]"
-          type="submit"
-        >
-          Create Entry
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <FormField
+            control={form.control}
+            name="ISBN"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-semibold">ISBN</FormLabel>
+                <FormControl>
+                  <Input
+                    required
+                    className="h-12"
+                    placeholder="Enter the book's ISBN"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="title"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-semibold">Title</FormLabel>
+                <FormControl>
+                  <Input
+                    required
+                    className="h-12"
+                    placeholder="Enter the book's title"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="subtitle"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-semibold">Subtitle</FormLabel>
+                <FormControl>
+                  <Input
+                    className="h-12"
+                    placeholder="Enter the book's subtitle"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="authors"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-semibold">Authors</FormLabel>
+                <FormControl>
+                  <Input
+                    required
+                    className="h-12"
+                    placeholder="Enter the book's authors"
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription>
+                  Enter multiple author with seperation of commas
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="category"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-semibold">Category</FormLabel>
+                <FormControl>
+                  <Input
+                    required
+                    className="h-12"
+                    placeholder="Enter the book's category"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="publishedDate"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-semibold">Published Date</FormLabel>
+                <FormControl>
+                  <Input
+                    required
+                    className="h-12"
+                    type="date"
+                    max={new Date().toISOString().split("T")[0]}
+                    placeholder="Enter the book's published date"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="publisher"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-semibold">Publisher</FormLabel>
+                <FormControl>
+                  <Input
+                    required
+                    className="h-12"
+                    placeholder="Enter the book's publisher"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <Button className="mt-10 w-full py-6 text-xl " type="submit">
+          Save your Entry
         </Button>
       </form>
     </Form>
