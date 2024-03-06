@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "./ui/button";
 import PlusIcon from "./icons/PlusIcon";
+import Link from "next/link";
 
 export default function HeaderSection(props: { username: string }) {
   return (
@@ -11,14 +12,16 @@ export default function HeaderSection(props: { username: string }) {
         </div>
       </div>
       <div>
-        <Button
-          variant={"outline"}
-          className="space-x-2 px-4 py-6 text-xl shadow-sm"
-          size={"lg"}
-        >
-          <PlusIcon />
-          <div>Add Record</div>
-        </Button>
+        <Link href={"/entry"}>
+          <Button
+            variant={"outline"}
+            className="space-x-2 px-4 py-6 text-xl shadow-sm"
+            size={"lg"}
+          >
+            <PlusIcon />
+            <div>Add Record</div>
+          </Button>
+        </Link>
       </div>
     </div>
   );

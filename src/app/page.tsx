@@ -1,7 +1,10 @@
+import { columns } from "@/components/DataTable/colums";
+import { DataTable } from "@/components/DataTable/data-table";
 import HeaderSection from "@/components/HeaderSection";
 import SearchBar from "@/components/SearchBar";
+import { getData } from "@/server/actions";
 
-export default function HomePage({
+export default async function HomePage({
   searchParams,
 }: {
   searchParams?: {
@@ -11,6 +14,8 @@ export default function HomePage({
   };
 }) {
   const username = "Satyam";
+  const data = await getData();
+
   return (
     <main className="flex justify-around">
       <div className="flex w-full flex-col lg:w-4/5">
@@ -20,7 +25,9 @@ export default function HomePage({
         <div>
           <SearchBar />
         </div>
-        <div>Data Table</div>
+        <div className="container mx-auto py-10">
+          <DataTable columns={columns} data={data} />
+        </div>
       </div>
     </main>
   );
