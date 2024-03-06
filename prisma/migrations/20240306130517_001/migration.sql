@@ -4,11 +4,12 @@ CREATE TABLE "Books" (
     "ISBN" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "subtitle" TEXT,
-    "categoryId" TEXT,
-    "publisherId" TEXT,
+    "categoryId" TEXT NOT NULL,
+    "publisherId" TEXT NOT NULL,
     "publishedDate" DATE NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "userId" TEXT NOT NULL,
+    "distribution_expense" INTEGER NOT NULL,
 
     CONSTRAINT "Books_pkey" PRIMARY KEY ("id")
 );
@@ -70,7 +71,7 @@ CREATE TABLE "Session" (
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
     "name" TEXT,
-    "email" TEXT,
+    "email" TEXT NOT NULL,
     "emailVerified" TIMESTAMP(3),
     "image" TEXT,
 
@@ -91,6 +92,15 @@ CREATE UNIQUE INDEX "Books_ISBN_key" ON "Books"("ISBN");
 CREATE UNIQUE INDEX "Books_title_subtitle_key" ON "Books"("title", "subtitle");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Authors_author_key" ON "Authors"("author");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Category_category_key" ON "Category"("category");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Publisher_publisher_key" ON "Publisher"("publisher");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Account_provider_providerAccountId_key" ON "Account"("provider", "providerAccountId");
 
 -- CreateIndex
@@ -106,10 +116,10 @@ CREATE UNIQUE INDEX "VerificationToken_token_key" ON "VerificationToken"("token"
 CREATE UNIQUE INDEX "VerificationToken_identifier_token_key" ON "VerificationToken"("identifier", "token");
 
 -- AddForeignKey
-ALTER TABLE "Books" ADD CONSTRAINT "Books_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Category"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Books" ADD CONSTRAINT "Books_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Books" ADD CONSTRAINT "Books_publisherId_fkey" FOREIGN KEY ("publisherId") REFERENCES "Publisher"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Books" ADD CONSTRAINT "Books_publisherId_fkey" FOREIGN KEY ("publisherId") REFERENCES "Publisher"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Books" ADD CONSTRAINT "Books_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
