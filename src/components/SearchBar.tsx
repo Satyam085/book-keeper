@@ -41,6 +41,7 @@ export default function SearchBar() {
 
   return (
     <div className="mx-4 flex gap-2">
+      
       <Select
         defaultValue={searchParams.get("option")?.toString()}
         onValueChange={(e) => {
@@ -51,11 +52,11 @@ export default function SearchBar() {
           <SelectValue placeholder="Select a field" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="Title">Title</SelectItem>
+          <SelectItem value="title">Title</SelectItem>
           <SelectItem value="Author">Author</SelectItem>
-          <SelectItem value="Category">Category</SelectItem>
-          <SelectItem value="Publisher">Publisher</SelectItem>
-          <SelectItem value="Any">Any</SelectItem>
+          <SelectItem value="Category.category">Category</SelectItem>
+          <SelectItem value="publisher">Publisher</SelectItem>
+          <SelectItem value="ISBN">ISBN</SelectItem>
         </SelectContent>
       </Select>
 

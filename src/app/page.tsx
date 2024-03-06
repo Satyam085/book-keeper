@@ -15,6 +15,9 @@ export default async function HomePage({
 }) {
   const username = "Satyam";
   const data = await getData();
+  
+  const query = searchParams?.query || ""
+  const option = searchParams?.option || " " 
 
   return (
     <main className="flex justify-around">
@@ -23,10 +26,10 @@ export default async function HomePage({
           <HeaderSection username={username} />
         </div>
         <div>
-          <SearchBar />
+          {/* <SearchBar /> */}
         </div>
         <div className="container mx-auto py-10">
-          <DataTable columns={columns} data={data} />
+          <DataTable columns={columns} data={data} query={query} option={option}/>
         </div>
       </div>
     </main>

@@ -68,6 +68,7 @@ export const columns: ColumnDef<BookTable>[] = [
     header: "Sub Title",
   },
   {
+    id : "author",
     accessorFn: (row) => {
       // console.log(row.authors[0]?.author);
       return row.authors[0]?.author;
@@ -75,16 +76,39 @@ export const columns: ColumnDef<BookTable>[] = [
     header: "Author",
   },
   {
+    id : "publisher",
     accessorKey: "Publisher.publisher",
     header: "Publisher",
   },
   {
+    id : "category",
     accessorKey: "Category.category",
     header: "Category",
   },
   {
     accessorKey: "publishedDate",
-    header: "Published Date",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Published Date
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell : ({row}) => {
+      const date = new Date(row.getValue("publishedDate"))
+      // console.log(date)
+    const day = ("0" + date.getDate()).slice(-2);
+    const month = ("0" + (date.getMonth() + 1)).slice(-2);
+    const year = date.getFullYear();
+
+    const formattedDate = `${day}-${month}-${year}`;
+
+    return formattedDate
+    }
   },
   {
     accessorKey: "distribution_expense",
