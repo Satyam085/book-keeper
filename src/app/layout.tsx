@@ -1,5 +1,6 @@
 import AppBar from "@/components/AppBar";
 import "@/styles/globals.css";
+import { ThemeProvider } from "./provider";
 
 import { Inter } from "next/font/google";
 
@@ -22,8 +23,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
-        <AppBar />
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <AppBar />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -2,7 +2,8 @@ import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import { getServerSession, } from "next-auth";
+import { getServerSession } from "next-auth";
+import { ModeToggle } from "./ModeToggle";
 
 export default async function AppBar() {
   const session = await getServerSession();
@@ -20,6 +21,9 @@ export default async function AppBar() {
             <AvatarImage src="https://github.com/shadcn.png" />
             <AvatarFallback>{username[0]}</AvatarFallback>
           </Avatar>
+        </div>
+        <div>
+          <ModeToggle />
         </div>
         <div>
           {!!session && (
