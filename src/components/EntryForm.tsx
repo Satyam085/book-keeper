@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import type { z } from "zod";
+import type { number, z } from "zod";
 import React, { useRef } from "react";
 import { entrySchema } from "@/lib/schema";
 
@@ -17,7 +17,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
 import { newEntry } from "@/server/actions";
 import { useFormState } from "react-dom";
 
@@ -38,6 +37,7 @@ export default function EntryForm() {
       ISBN: "",
       publishedDate: "",
       publisher: "",
+      distribution_expense: "0.00",
     },
   });
 
@@ -190,6 +190,26 @@ export default function EntryForm() {
                     required
                     className="h-12"
                     placeholder="Enter the book's publisher"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="distribution_expense"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-semibold">Expense</FormLabel>
+                <FormControl>
+                  <Input
+                    required
+                    type="number"
+                    className="h-12"
+                    placeholder="Enter the book's distribution_expense"
                     {...field}
                   />
                 </FormControl>

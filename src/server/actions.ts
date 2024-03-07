@@ -10,7 +10,8 @@ export type prevState = {
 export const newEntry = async(prevState: prevState , data : FormData) : Promise<prevState> => {
     const formData = Object.fromEntries(data)
     const parsed = entrySchema.safeParse(formData)
-    
+
+        
     console.log(parsed)
 
     if(!parsed.success){
@@ -18,8 +19,59 @@ export const newEntry = async(prevState: prevState , data : FormData) : Promise<
             message : "Error",
         }
     }
+    const listauthors : string[] = parsed.data.authors.split(",")
+    const newEntry = await db.books.create({
+        data : {
+            ISBN : parsed.data.ISBN,
+            distribution_expense : parseFloat(parsed.data.distribution_expense) * 100,
+            title : parsed.data.title,
+            subtitle : parsed.data.subtitle ?? "",
+            publishedDate : new Date(parsed.data.publishedDate),
+            authors : {
+                connectOrCreate: listauthors.map(item => ({
+                    where : {author : item},
+                    create : {author : item}
+                }))
+            },
+            Publisher : {
+                connectOrCreate: {
+                    where : {
+                        publisher : parsed.data.publisher,
+                    },
+                    create : {
+                        publisher : parsed.data.publisher
+                    }
+                }
+            },
+             Category : {
+                connectOrCreate: {
+                    where : {
+                        category : parsed.data.category,
+                    },
+                    create : {
+                        category : parsed.data.category
+                    }
+                }
+            },
+             enterdBy : {
+                connectOrCreate: {
+                    where : {
+                        email : "admin@test.com"
+                    },
+                    create : {
+                        email : "admin@test.com" 
+                    }
+                }
+            }
+        }
+    })
+    if (newEntry) {
+        return {
+            message : "Data entered Sucess"
+        }
+    }
     return {
-        message : "Sucess",
+        message : "Something went wrong",
     }
 }
 

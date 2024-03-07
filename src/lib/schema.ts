@@ -10,6 +10,6 @@ export const entrySchema = z.object({
     publisher: z.string().min(1, { message: "Publisher is required" }),
     category: z.string().min(1, { message: "Category is required" }),
     publishedDate: z.string(),
-
+    distribution_expense : z.string()
     }
 )
