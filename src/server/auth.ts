@@ -6,6 +6,7 @@ import {
 } from "next-auth";
 import { type Adapter } from "next-auth/adapters";
 import DiscordProvider from "next-auth/providers/discord";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 import { env } from "@/env";
 import { db } from "@/server/db";
@@ -52,6 +53,34 @@ export const authOptions: NextAuthOptions = {
       clientId: env.DISCORD_CLIENT_ID,
       clientSecret: env.DISCORD_CLIENT_SECRET,
     }),
+           CredentialsProvider({
+            name: "Credentials",
+            credentials: {
+                username: {
+                    label: "Username:",
+                    type: "text",
+                    placeholder: "Default username is demo"
+                },
+                password: {
+                    label: "Password:",
+                    type: "password",
+                    placeholder: "Default password is demo@123"
+                }
+            },
+          
+            async authorize(credentials) {
+                // This is where you need to retrieve user data 
+                // to verify with credentials
+                // Docs: https://next-auth.js.org/configuration/providers/credentials
+                const user = {  name: "demo", password: "demo@123" }
+
+                if (credentials?.username === user.name && credentials?.password === user.password) {
+                    return user
+                } else {
+                    return null
+                }
+            }
+        })
     /**
      * ...add more providers here.
      *

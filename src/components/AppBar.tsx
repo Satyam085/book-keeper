@@ -2,10 +2,12 @@ import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { getServerSession, } from "next-auth";
 
-export default function AppBar() {
-  const username = "Satyam";
-  const session = true;
+export default async function AppBar() {
+  const session = await getServerSession();
+  const username = session?.user.name ?? "D";
+
   return (
     <div className="flex items-center justify-between border border-b-slate-200 p-4 shadow-sm ">
       <Link href={"/"}>
@@ -19,7 +21,13 @@ export default function AppBar() {
             <AvatarFallback>{username[0]}</AvatarFallback>
           </Avatar>
         </div>
-        <div>{!!session && <Button>Logout</Button>}</div>
+        <div>
+          {!!session && (
+            <Link href={"/api/auth/signout"}>
+              <Button>Logout</Button>
+            </Link>
+          )}
+        </div>
       </div>
     </div>
   );
