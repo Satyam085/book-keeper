@@ -14,7 +14,7 @@ import { useSearchParams, usePathname, useRouter } from "next/navigation";
 export default function SearchBar() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const { replace } = useRouter();
+  const router = useRouter();
 
   function handleSearch(value: string) {
     const params = new URLSearchParams(searchParams);
@@ -24,7 +24,7 @@ export default function SearchBar() {
       params.delete("query");
     }
 
-    replace(`${pathname}?${params.toString()}`);
+    router.replace(`${pathname}?${params.toString()}`);
   }
 
   function handleSelect(value: string) {
@@ -36,12 +36,11 @@ export default function SearchBar() {
       params.set("option", "Any");
     }
 
-    replace(`${pathname}?${params.toString()}`);
+    router.replace(`${pathname}?${params.toString()}`);
   }
 
   return (
     <div className="mx-4 flex gap-2">
-      
       <Select
         defaultValue={searchParams.get("option")?.toString()}
         onValueChange={(e) => {

@@ -129,7 +129,9 @@ export const columns: ColumnDef<BookTable>[] = [
     id: "actions",
     cell: ({ row }) => {
       const book = row.original;
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       const searchParams = useSearchParams();
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       const router = useRouter();
 
       function handleEdit(term: string) {
