@@ -12,6 +12,9 @@ It aims for providing basic CRUD operations in a book store with sufficient vali
 - Client and Sever side validation
 
 ## Screenshots
+![Dashboard](./img/Dashboard.PNG)  
+![Edit Form](./img/Edit.png)
+![New Entry Form](./img/Entry.png)
 
 ## Stack Used
 
