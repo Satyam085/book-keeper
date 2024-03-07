@@ -1,7 +1,6 @@
 import AppBar from "@/components/AppBar";
 import "@/styles/globals.css";
-import { ThemeProvider } from "./provider";
-import { SessionProvider } from "next-auth/react";
+import { ThemeProvider, AuthProvider } from "./provider";
 
 import { Inter } from "next/font/google";
 
@@ -24,17 +23,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
-        <SessionProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <AuthProvider>
             <AppBar />
             {children}
-          </ThemeProvider>
-        </SessionProvider>
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
