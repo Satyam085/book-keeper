@@ -15,7 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { deleteBook } from "@/server/actions";
-import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 interface BookTable extends Books {
   authors: {
@@ -130,8 +130,7 @@ export const columns: ColumnDef<BookTable>[] = [
     cell: ({ row }) => {
       const book = row.original;
       const searchParams = useSearchParams();
-      const pathname = usePathname();
-      const { replace } = useRouter();
+      const router = useRouter();
 
       function handleEdit(term: string) {
         const params = new URLSearchParams(searchParams);
@@ -140,7 +139,7 @@ export const columns: ColumnDef<BookTable>[] = [
         } else {
           params.delete("query");
         }
-        replace(`edit?${params.toString()}`);
+        router.replace(`edit?${params.toString()}`);
         console.log(term);
       }
       return (
