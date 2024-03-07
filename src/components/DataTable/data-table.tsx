@@ -33,7 +33,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-
 import {
   Select,
   SelectContent,
@@ -45,15 +44,15 @@ import {
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  query : string;
-  option : string;
+  query: string;
+  option: string;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   query,
-  option
+  option,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
@@ -65,8 +64,8 @@ export function DataTable<TData, TValue>({
     React.useState<VisibilityState>({});
 
   const [rowSelection, setRowSelection] = React.useState({});
-  
-  const [field, setField] =  React.useState("title")
+
+  const [field, setField] = React.useState("title");
   const table = useReactTable({
     data,
     columns,
@@ -90,25 +89,23 @@ export function DataTable<TData, TValue>({
   return (
     <div>
       <div className="flex items-center gap-4 py-4">
-
-      <Select
-
-        defaultValue={field.toString()}
-        onValueChange={(e) => {
-          setField(e);
-        }}
-      >
-        <SelectTrigger className="w-40">
-          <SelectValue placeholder="Select a field" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="title">Title</SelectItem>
-          <SelectItem value="author">Author</SelectItem>
-          <SelectItem value="category">Category</SelectItem>
-          <SelectItem value="publisher">Publisher</SelectItem>
-          <SelectItem value="ISBN">ISBN</SelectItem>
-        </SelectContent>
-      </Select>
+        <Select
+          defaultValue={field.toString()}
+          onValueChange={(e) => {
+            setField(e);
+          }}
+        >
+          <SelectTrigger className="w-40">
+            <SelectValue placeholder="Select a field" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="title">Title</SelectItem>
+            <SelectItem value="author">Author</SelectItem>
+            <SelectItem value="category">Category</SelectItem>
+            <SelectItem value="publisher">Publisher</SelectItem>
+            <SelectItem value="ISBN">ISBN</SelectItem>
+          </SelectContent>
+        </Select>
         <Input
           placeholder="Filter by..."
           value={(table.getColumn(field)?.getFilterValue() as string) ?? ""}

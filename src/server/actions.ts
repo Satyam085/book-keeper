@@ -2,6 +2,7 @@
 
 import { entrySchema } from "@/lib/schema"
 import { db } from "./db"
+import { revalidatePath } from "next/cache"
 
 export type prevState = {
     message : string
@@ -90,4 +91,19 @@ export const getData = async()   => {
 
     // console.log(getAuthor)
     return data
+}
+
+export const deleteBook = async(data : string) => {
+
+    console.log(data)
+    const res = await db.books.delete({
+        where : {
+            ISBN : data
+        }
+    })
+    if (res) revalidatePath("/")
+    return {
+        message : "Sucess"
+    }
+
 }

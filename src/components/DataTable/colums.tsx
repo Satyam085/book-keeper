@@ -14,6 +14,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { db } from "@/server/db";
+import { deleteBook } from "@/server/actions";
 
 interface BookTable extends Books {
   authors: {
@@ -68,7 +70,7 @@ export const columns: ColumnDef<BookTable>[] = [
     header: "Sub Title",
   },
   {
-    id : "author",
+    id: "author",
     accessorFn: (row) => {
       // console.log(row.authors[0]?.author);
       return row.authors[0]?.author;
@@ -76,12 +78,12 @@ export const columns: ColumnDef<BookTable>[] = [
     header: "Author",
   },
   {
-    id : "publisher",
+    id: "publisher",
     accessorKey: "Publisher.publisher",
     header: "Publisher",
   },
   {
-    id : "category",
+    id: "category",
     accessorKey: "Category.category",
     header: "Category",
   },
@@ -98,17 +100,17 @@ export const columns: ColumnDef<BookTable>[] = [
         </Button>
       );
     },
-    cell : ({row}) => {
-      const date = new Date(row.getValue("publishedDate"))
+    cell: ({ row }) => {
+      const date = new Date(row.getValue("publishedDate"));
       // console.log(date)
-    const day = ("0" + date.getDate()).slice(-2);
-    const month = ("0" + (date.getMonth() + 1)).slice(-2);
-    const year = date.getFullYear();
+      const day = ("0" + date.getDate()).slice(-2);
+      const month = ("0" + (date.getMonth() + 1)).slice(-2);
+      const year = date.getFullYear();
 
-    const formattedDate = `${day}-${month}-${year}`;
+      const formattedDate = `${day}-${month}-${year}`;
 
-    return formattedDate
-    }
+      return formattedDate;
+    },
   },
   {
     accessorKey: "distribution_expense",
@@ -145,7 +147,13 @@ export const columns: ColumnDef<BookTable>[] = [
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>Edit details</DropdownMenuItem>
-            <DropdownMenuItem>Delete Entry</DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={async () => {
+                await deleteBook(book.ISBN);
+              }}
+            >
+              Delete Entry
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
