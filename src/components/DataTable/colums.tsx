@@ -14,8 +14,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { db } from "@/server/db";
 import { deleteBook } from "@/server/actions";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 interface BookTable extends Books {
   authors: {
@@ -129,7 +129,20 @@ export const columns: ColumnDef<BookTable>[] = [
     id: "actions",
     cell: ({ row }) => {
       const book = row.original;
+      const searchParams = useSearchParams();
+      const pathname = usePathname();
+      const { replace } = useRouter();
 
+      function handleEdit(term: string) {
+        const params = new URLSearchParams(searchParams);
+        if (term) {
+          params.set("query", term);
+        } else {
+          params.delete("query");
+        }
+        replace(`edit?${params.toString()}`);
+        console.log(term);
+      }
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -146,7 +159,9 @@ export const columns: ColumnDef<BookTable>[] = [
               Copy Book ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Edit details</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => handleEdit(book.ISBN)}>
+              Edit details
+            </DropdownMenuItem>
             <DropdownMenuItem
               onClick={async () => {
                 await deleteBook(book.ISBN);

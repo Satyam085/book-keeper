@@ -17,11 +17,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { newEntry } from "@/server/actions";
+import { updateEntry } from "@/server/actions";
 import { useFormState } from "react-dom";
 
-export default function EntryForm() {
-  const [state, formAction] = useFormState(newEntry, {
+export default function EditForm(props: { ISBN: string }) {
+  const [state, formAction] = useFormState(updateEntry, {
     message: "",
   });
 
@@ -34,26 +34,12 @@ export default function EntryForm() {
       subtitle: "",
       authors: "",
       category: "",
-      ISBN: "",
+      ISBN: props.ISBN,
       publishedDate: "",
       publisher: "",
       distribution_expense: "0.00",
     },
   });
-
-  // async function onSubmit(values: z.infer<typeof entrySchema>) {
-  //   const formData = new FormData();
-  //   formData.append("title", values.title),
-  //     formData.append("subtitle", values.subtitle ?? ""),
-  //     formData.append("authors", values.authors),
-  //     formData.append("category", values.category),
-  //     formData.append("ISBN", values.ISBN),
-  //     formData.append("publishedDate", values.publishedDate),
-  //     formData.append("publisher", values.publisher);
-
-  //   await newEntry(formData);
-  //   console.log(values);
-  // }
 
   return (
     <Form {...form}>
@@ -77,7 +63,8 @@ export default function EntryForm() {
                   <Input
                     required
                     className="h-12"
-                    placeholder="Enter the book's ISBN"
+                    defaultValue={props.ISBN}
+                    readOnly
                     {...field}
                   />
                 </FormControl>
@@ -219,7 +206,7 @@ export default function EntryForm() {
           />
         </div>
         <Button className="mt-10 w-full py-6 text-xl " type="submit">
-          Save your Entry
+          Update your Entry
         </Button>
       </form>
     </Form>
