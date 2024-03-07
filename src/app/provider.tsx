@@ -9,6 +9,10 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
 }
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+export async function AuthProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return <SessionProvider>{children}</SessionProvider>;
 }
