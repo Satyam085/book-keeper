@@ -32,6 +32,14 @@ export default async function AppBar() {
             </Link>
           )}
         </div>
+        <div>
+          <Link
+            href={"https://www.github.com/Satyam085/book-keeper"}
+            target="_blank"
+          >
+            <Button variant={"link"}>GitHub</Button>
+          </Link>
+        </div>
       </div>
     </div>
   );
