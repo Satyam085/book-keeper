@@ -1,7 +1,7 @@
 import AppBar from "@/components/AppBar";
 import "@/styles/globals.css";
 import { ThemeProvider, AuthProvider } from "./provider";
-
+import { Analytics } from "@vercel/analytics/react";
 import { Inter } from "next/font/google";
 
 const inter = Inter({
@@ -32,6 +32,7 @@ export default function RootLayout({
           >
             <AppBar />
             {children}
+            <Analytics />
           </ThemeProvider>
         </AuthProvider>
       </body>
